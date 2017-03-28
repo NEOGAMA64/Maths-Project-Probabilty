@@ -1,11 +1,41 @@
 import numpy as np
+import sys, time, random
+
+def print_slow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.00)
+
+def swrd_dmg(dragonHP):
+	#a = np.random.randint(1,6)
+	#b = np.random.randint(6,11)
+	#c = np.random.randint(a,b)
+	y = np.random.randint(2,5)
+	print_slow("\nYou dealt " + str(y) + " damage\n")
+	dragonHP = dragonHP - y
+	print_slow("\nThe dragon has " + str(dragonHP) + " HP left\n")
+	return dragonHP
+
+def bow_dmg(dragonHP):
+	#a = np.random.normal(10,2,1000)
+	#b = random.choice(a)
+
+	#c = np.random.rand(1000,1)
+	#d = random.choice(c)
+	y = np.random.randint(3,7)
+	print_slow("\nYou dealt " + str(y) + " damage\n")
+	dragonHP = dragonHP - y
+	print_slow("\nThe dragon has " + str(dragonHP) + " HP left\n")
+	return dragonHP
 
 def drag_dmg(heroHP):
-	print "The dragon shot a fireball at you"
-	x = np.random.randint(2,4)
+
+	print_slow("\nThe dragon shot a fireball at you\n")
+	x = np.random.randint(3,6)
 	heroHP = heroHP - x
-	print "It dealt " + str(x) + " damage"
-	print "You have " + srt(heroHP) + " HP left"
+	print_slow("\nIt dealt " + str(x) + " damage\n")
+	print_slow("\nYou have " + str(heroHP) + " HP left\n")
 	return heroHP
 		
 def dragon_slayer():
@@ -16,75 +46,70 @@ def dragon_slayer():
 	bow = False
 	decision = True
 
-	print "A dragon appears!!\n" 
-	print "Do you wish to attack it with your sword or your bow and arrows?"
-	print "\nThink carefully: arrows do more damage but loading them on the bow will allow the dragon to attack first"
-	print "You have 100 health points, or HP, the dragon also has 100 HP though"
+	print_slow("\nA dragon appears!!\n")
+	print_slow("\nDo you wish to attack it with your sword or your bow and arrows?\n")
+	print_slow("\nThink carefully: arrows do more damage but loading them on the bow will allow the dragon to attack first\n")
+	print_slow("\nYou have 10 health points, or HP, the dragon also has 10 HP though\n")
 	
 	while decision == True:	
 		
-		swordOrBow = raw_input()
+		swordOrBow = raw_input("\nType in 'sword' or 'bow' to choose: ")
 
-		if swordOrBow == "sword" or "Sword":
-			print "You have choosen to draw your sword"
+		if swordOrBow == "sword":
+			print_slow("\nYou have choosen to draw your sword\n")
 			sword = True
 			decision = False
-		elif swordOrBow == "bow" or "Bow": 
-			print "You have choosen to shoot the dragon with your bow"
+		elif swordOrBow == "bow": 
+			print_slow("\nYou have choosen to shoot the dragon with your bow\n")
 			bow = True
 			decision = False
 		else: 
-			print "Sorry but you must type in 'sword' or 'bow'"
+			print_slow("\nSorry but you must type in 'sword' or 'bow'\n")
 
 	if sword == True:
-		print "The dragon has landed right in front of you and is ready for a showdown!!"
+		print_slow("\nThe dragon has landed right in front of you and is ready for a showdown!!\n")
 		while dragonHP > 0 and heroHP > 0:
 			
-			attack = raw_input("Type 'hit' to strike the dragon with your sword!")
+			attack = raw_input("\nType 'hit' to strike the dragon with your sword!\n")
 			
-			if attack == "hit":
-				y = np.random.randint(2,3)
-				print "You dealt " + str(y) + " damage"
-				dragonHP = dragonHP - y
-				print "The dragon has " + str(dragonHP) + " HP left"
+			if attack == "hit" and heroHP > 0:
+				dragonHP = swrd_dmg(dragonHP)
 
-			drag_dmg(heroHP)
+				if dragonHP > 0:				
+					heroHP = drag_dmg(heroHP)
 		
-		if dragonHP <= 0:
-			print "You won!!! now you can rest in piece"
-		elif heroHP <= 0:
-			print "It's such as shame but you lost. Now go rest in pieces"
+		if 0 >= dragonHP and heroHP > dragonHP:
+			print_slow("\nYou won!!!\n\nNow go and claim your price\n")
+		elif 0 >= heroHP and dragonHP > heroHP:
+			print_slow("\nIt's such as shame but you lost\n\nNow go rest in piece\n")
 
 	if bow == True:
-		print "The dragon has landed right in front of you and is ready for a showdown!!"
-		while dragonHP > 0 and heroHP > 0:
-			print "Since you choose to shoot arrows with you bow,\n" 
-			print "you must wait a whole turn to load it, giving the dragon a chance to attack first"
-			
-			drag_dmg(heroHP)
+		print_slow("\nThe dragon has landed right in front of you and is ready for a showdown!!\n")
+		print_slow("\nSince you chose to shoot arrows with your bow, ")
+		print_slow("you must wait a whole turn to load it, giving the dragon a chance to attack first\n")
+		
+		while dragonHP > 0  and heroHP > 0:
+			if dragonHP > 0:
+				heroHP = drag_dmg(heroHP)
 
-			hit = raw_input("Type 'hit' to shoot the dragon with you bow")
+			if heroHP > 0:
+				shoot = raw_input("\nType 'shoot' to shoot the dragon with an arrow\n")
+				dragonHP = bow_dmg(dragonHP)
 
-			if hit == "hit":
-				z = np.random.randint(3,5)
-				print "You dealt " + str(z) + " damage"
-				dragonHP = dragonHP - z
-				print "The dragon has " + str(dragonHP) + " HP left"
-
-
-		if dragonHP < heroHP:
-			print "You won!!! now you can rest in piece"
-		elif heroHP < dragonHP:
-			print "It's such as shame but you lost. Now go rest in pieces"
+		if 0 >= dragonHP and heroHP > dragonHP:
+			print_slow("\nYou won!!!\n\nNow go and claim your price\n")
+		elif 0 >= heroHP and dragonHP > heroHP:
+			print_slow("\nIt's such as shame but you lost\n\nNow go rest in piece\n")
 
 def main():
 	slayer = True
 	while slayer == True:
-		gameStart = raw_input("Do you wish to start?")
+		gameStart = raw_input("\nDo you wish to start or exit Dragon Slayer? ")
 
-		if gameStart == "yes" or "Yes":
+		if gameStart == "start":
 			dragon_slayer()
-		
+		elif gameStart == "exit":
+			slayer = False
 
 if __name__ == '__main__':
 	main()
