@@ -5,7 +5,7 @@ def print_slow(str):
     for letter in str:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.00)
+        time.sleep(0.05)
 
 def swrd_dmg(dragonHP):
 	#a = np.random.randint(1,6)
