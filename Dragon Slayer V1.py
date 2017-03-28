@@ -1,6 +1,7 @@
 import numpy as np
 import sys, time, random
 
+#print_slow function by user "Sebastian" in stack overflow forum "printing slowly (Simulate typing)" @ Apr 30 '12 at 21:32
 def print_slow(str):
     for letter in str:
         sys.stdout.write(letter)
