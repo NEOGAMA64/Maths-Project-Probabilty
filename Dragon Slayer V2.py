@@ -22,17 +22,6 @@ def dmg(dragonP, heroP):
 	if dragDmg == heroDmg:
 		print_slow("\nSince you both did the same amount of damage,\n")
 		print_slow("\nthe dragon gets the point as it weighs more and has greater overall force\n")
-	
-	"""if dragDmg == heroDmg:
-		print_slow("\nYou and the dragon attacked with equal strength\n")
-		print_slow("\nYou have an equal chance of getting the point\n")
-		tiebreak = np.random.randint(1,3)
-		if tiebreak == 1:
-			heroP = heroP + 1
-			print_slow("\nYou were lucky enough to get the point\n")
-		elif tiebreak == 2:
-			dragonP = dragonP + 1
-			print_slow("\nThe dragon go the point\n")"""
 
 	if dragDmg >= heroDmg:
 		dragonP = dragonP + 1
